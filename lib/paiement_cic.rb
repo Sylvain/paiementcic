@@ -75,22 +75,22 @@ class PaiementCic
 	end
   
   def hmac_sha1(key, data)
-		length = 64
+    length = 64
 
-		if (key.length > length) 
-			key = [Digest::SHA1.hexdigest(key)].pack("H*")
-		end
+    if (key.length > length) 
+      key = [Digest::SHA1.hexdigest(key)].pack("H*")
+    end
 
-		key  = key.ljust(length, 0.chr)
-		ipad = ''.ljust(length, 54.chr)
-		opad = ''.ljust(length, 92.chr)
+    key  = key.ljust(length, 0.chr)
+    ipad = ''.ljust(length, 54.chr)
+    opad = ''.ljust(length, 92.chr)
 
-		k_ipad = key ^ ipad
-		k_opad = key ^ opad
+    k_ipad = key ^ ipad
+    k_opad = key ^ opad
 
-		#Digest::SHA1.hexdigest(k_opad + [Digest::SHA1.hexdigest(k_ipad + sData)].pack("H*"))
-	  OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("sha1"), key, data)
-	end
+    Digest::SHA1.hexdigest(k_opad + [Digest::SHA1.hexdigest(k_ipad + sData)].pack("H*"))
+    #OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("sha1"), key, data)
+  end
 
   private
 	# Return the key to be used in the hmac function
