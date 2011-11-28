@@ -88,7 +88,7 @@ class PaiementCic
     k_ipad = key ^ ipad
     k_opad = key ^ opad
 
-    Digest::SHA1.hexdigest(k_opad + [Digest::SHA1.hexdigest(k_ipad + sData)].pack("H*"))
+    Digest::SHA1.hexdigest(k_opad + [Digest::SHA1.hexdigest(k_ipad + data)].pack("H*"))
     #OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("sha1"), key, data)
   end
 
