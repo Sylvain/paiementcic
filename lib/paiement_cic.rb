@@ -16,16 +16,16 @@ end
 class PaiementCic
   @@hmac_key = "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ" # clé extraite grâce à extract2HmacSha1.html fourni par le Crédit Mutuel
   cattr_accessor :hmac_key
-  
+
   @@target_url = "https://ssl.paiement.cic-banques.fr/test/paiement.cgi" # "https://ssl.paiement.cic-banques.fr/paiement.cgi"
   cattr_accessor :target_url
-  
+
   @@tpe = "123456"
   cattr_accessor :tpe
-  
+
   @@societe = "masociete"
   cattr_accessor :societe
-  
+
   def self.date_format
     "%d/%m/%Y:%H:%M:%S"
   end
@@ -47,7 +47,7 @@ class PaiementCic
     data = ordered_hash.values.join("*") + "*"
     hmac(data)
   end
-  
+
   def self.verify_hmac params
     tpe = params[:TPE]
     date = params[:date]
@@ -63,7 +63,7 @@ class PaiementCic
 
     mac == hmac(data)
   end
-  
+
   def self.hmac(data)
     pass = "";
     k1 = [Digest::SHA1.hexdigest(pass)].pack("H*");
